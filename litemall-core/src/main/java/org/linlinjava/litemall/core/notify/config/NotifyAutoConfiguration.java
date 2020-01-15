@@ -4,7 +4,6 @@ import com.github.qcloudsms.SmsSingleSender;
 import org.linlinjava.litemall.core.notify.AliyunSmsSender;
 import org.linlinjava.litemall.core.notify.NotifyService;
 import org.linlinjava.litemall.core.notify.TencentSmsSender;
-import org.linlinjava.litemall.core.notify.WxTemplateSender;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,15 +45,9 @@ public class NotifyAutoConfiguration {
             notifyService.setSmsTemplate(smsConfig.getTemplate());
         }
 
-        NotifyProperties.Wx wxConfig = properties.getWx();
-        if (wxConfig.isEnable()) {
-            notifyService.setWxTemplateSender(wxTemplateSender());
-            notifyService.setWxTemplate(wxConfig.getTemplate());
-        }
         return notifyService;
     }
 
-    @Bean
     public JavaMailSender mailSender() {
         NotifyProperties.Mail mailConfig = properties.getMail();
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -75,13 +68,6 @@ public class NotifyAutoConfiguration {
         return mailSender;
     }
 
-    @Bean
-    public WxTemplateSender wxTemplateSender() {
-        WxTemplateSender wxTemplateSender = new WxTemplateSender();
-        return wxTemplateSender;
-    }
-
-    @Bean
     public TencentSmsSender tencentSmsSender() {
         NotifyProperties.Sms smsConfig = properties.getSms();
         TencentSmsSender smsSender = new TencentSmsSender();
@@ -91,7 +77,6 @@ public class NotifyAutoConfiguration {
         return smsSender;
     }
 
-    @Bean
     public AliyunSmsSender aliyunSmsSender() {
         NotifyProperties.Sms smsConfig = properties.getSms();
         AliyunSmsSender smsSender = new AliyunSmsSender();

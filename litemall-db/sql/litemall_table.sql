@@ -234,7 +234,8 @@ CREATE TABLE `litemall_coupon` (
   `add_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='优惠券信息及规则表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -378,7 +379,8 @@ CREATE TABLE `litemall_goods_product` (
   `add_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8mb4 COMMENT='商品货品表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -446,7 +448,8 @@ CREATE TABLE `litemall_groupon_rules` (
   `add_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `goods_id` (`goods_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='团购规则表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -676,7 +679,8 @@ CREATE TABLE `litemall_storage` (
   `add_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件存储表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -753,26 +757,6 @@ CREATE TABLE `litemall_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `litemall_user_formid`
---
-
-DROP TABLE IF EXISTS `litemall_user_formid`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `litemall_user_formid` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `formId` varchar(63) NOT NULL COMMENT '缓存的FormId',
-  `isprepay` tinyint(1) NOT NULL COMMENT '是FormId还是prepayId',
-  `useAmount` int(2) NOT NULL COMMENT '可用次数，fromId为1，prepay为3，用1次减1',
-  `expire_time` datetime NOT NULL COMMENT '过期时间，腾讯规定为7天',
-  `openId` varchar(63) NOT NULL COMMENT '微信登录openid',
-  `add_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
